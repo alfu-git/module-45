@@ -12,54 +12,36 @@ import {
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 
-const SignUpPage = () => {
+const SignInPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.currentTarget);
     const userData = Object.fromEntries(formData.entries());
-    console.log(userData);
 
-    const { data, error } = await authClient.signUp.email({
-      name: userData.name,
+    const { data, error } = await authClient.signIn.email({
       email: userData.email,
       password: userData.password,
+      rememberMe: true,
       callbackURL: "/",
     });
 
-    console.log({ data, error });
-
     if (error) {
-      alert("Error signin up: " + error.message);
+      alert(error.message);
     }
 
     if (data) {
-      alert("Sign up successful!");
+      alert("Login Successful!");
     }
   };
 
   return (
     <section className="my-15">
       <div className="flex flex-col gap-5 items-center">
-        <h2 className="text-2xl font-bold">Please Sign Up</h2>
+        <h2 className="text-2xl font-bold">Please Sign In</h2>
 
         <div className="p-4 border rounded-xl max-w-fit">
           <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
-            {/* name */}
-            <TextField
-              isRequired
-              name="name"
-              validate={(value) => {
-                if (value.length < 3) {
-                  return "Name must be at least 3 characters";
-                }
-                return null;
-              }}
-            >
-              <Label>Name</Label>
-              <Input name="name" placeholder="Enter your name" />
-              <FieldError />
-            </TextField>
-
             {/* email */}
             <TextField
               isRequired
@@ -121,4 +103,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignInPage;
