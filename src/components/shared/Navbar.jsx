@@ -21,11 +21,15 @@ const Navbar = () => {
 
         <ul className="flex items-center gap-4">
           <li>
-            <Link href="#">Features</Link>
+            <Link href="/">Home</Link>
           </li>
 
           <li>
-            <Link href="#">Pricing</Link>
+            <Link href="/dashboard">Dashboard</Link>
+          </li>
+
+          <li>
+            <Link href="/about">About</Link>
           </li>
         </ul>
 
